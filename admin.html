@@ -2,42 +2,48 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
-<title>Admin Panel</title>
+<title>Admin</title>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
 
 <style>
-body {
+body{
     margin:0;
-    height:100vh;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    font-family: Arial;
+    font-family:Arial;
     background:#111;
     color:white;
-}
-
-.box {
-    text-align:center;
+    padding:30px;
 }
 </style>
 </head>
 
 <body>
 
-<div class="box">
-    <h1>ADMIN 🔐</h1>
+<h1>ADMIN PANEL 🔐</h1>
 
-    <p id="user"></p>
-    <p id="pass"></p>
-</div>
+<div id="list"></div>
 
-<!-- 🔥 SCRIPT -->
 <script>
-document.getElementById("user").innerText =
-"User : " + localStorage.getItem("user");
+const supabaseUrl = "https://qarjoeeftvtrzoqyufgb.supabase.co";
+const supabaseKey = "sb_publishable_-81q9wbD36UU-U9eBdP-AQ_wvgIUeHO";
 
-document.getElementById("pass").innerText =
-"Pass : " + localStorage.getItem("pass");
+const supabase = supabase.createClient(supabaseUrl, supabaseKey);
+
+async function load(){
+    let { data } = await supabase.from("users").select("*");
+
+    let html = "";
+
+    data.forEach(u=>{
+        html += `
+        <p>👤 ${u.username} | 🔑 ${u.password}</p>
+        `;
+    });
+
+    document.getElementById("list").innerHTML = html;
+}
+
+load();
 </script>
 
 </body>
