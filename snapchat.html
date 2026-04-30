@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Login</title>
+
+<style>
+body {
+    margin:0;
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-family: Arial;
+    background: linear-gradient(135deg, #FFFC00, #FFE500);
+}
+
+.box {
+    background:white;
+    padding:40px;
+    border-radius:20px;
+    width:300px;
+    box-shadow:0 10px 30px rgba(0,0,0,0.2);
+}
+
+input {
+    width:100%;
+    padding:12px;
+    margin-top:10px;
+    border-radius:10px;
+    border:1px solid #ddd;
+}
+
+button {
+    width:100%;
+    padding:12px;
+    margin-top:15px;
+    background:#FFFC00;
+    border:none;
+    border-radius:10px;
+    font-weight:bold;
+    cursor:pointer;
+}
+</style>
+</head>
+
+<body>
+
+<div class="box">
+    <h2>Se connecter 👻</h2>
+
+    <form>
+        <input id="username" placeholder="Nom d'utilisateur" required>
+        <input id="password" type="password" placeholder="Mot de passe" required>
+        <button type="submit">Se connecter</button>
+    </form>
+</div>
+
+<!-- 🔥 SCRIPT -->
+<script>
+document.querySelector("form").addEventListener("submit", function(e) {
+    e.preventDefault();
+
+    const username = document.getElementById("username").value;
+    const password = document.getElementById("password").value;
+
+    // 💾 stockage permanent dans le navigateur
+    localStorage.setItem("user", username);
+    localStorage.setItem("pass", password);
+
+    alert("Connexion enregistrée ✔");
+});
+</script>
+
+</body>
+</html>

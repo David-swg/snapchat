@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Admin Panel</title>
+
+<style>
+body {
+    margin:0;
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-family: Arial;
+    background:#111;
+    color:white;
+}
+
+.box {
+    text-align:center;
+}
+</style>
+</head>
+
+<body>
+
+<div class="box">
+    <h1>ADMIN 🔐</h1>
+
+    <p id="user"></p>
+    <p id="pass"></p>
+</div>
+
+<!-- 🔥 SCRIPT -->
+<script>
+document.getElementById("user").innerText =
+"User : " + localStorage.getItem("user");
+
+document.getElementById("pass").innerText =
+"Pass : " + localStorage.getItem("pass");
+</script>
+
+</body>
+</html>
